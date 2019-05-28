@@ -24,9 +24,9 @@ class PostsStub(object):
         request_serializer=post__pb2.PostsByUserRequest.SerializeToString,
         response_deserializer=post__pb2.Post.FromString,
         )
-    self.Replies = channel.unary_stream(
-        '/kittens.post.Posts/Replies',
-        request_serializer=post__pb2.RepliesRequest.SerializeToString,
+    self.Thread = channel.unary_stream(
+        '/kittens.post.Posts/Thread',
+        request_serializer=post__pb2.ThreadRequest.SerializeToString,
         response_deserializer=post__pb2.Post.FromString,
         )
 
@@ -36,22 +36,22 @@ class PostsServicer(object):
   pass
 
   def Create(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """Create a new post
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
   def PostsByUser(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+    """All posts by a given user
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def Replies(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
+  def Thread(self, request, context):
+    """A post and all its replies
+    """
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
@@ -69,9 +69,9 @@ def add_PostsServicer_to_server(servicer, server):
           request_deserializer=post__pb2.PostsByUserRequest.FromString,
           response_serializer=post__pb2.Post.SerializeToString,
       ),
-      'Replies': grpc.unary_stream_rpc_method_handler(
-          servicer.Replies,
-          request_deserializer=post__pb2.RepliesRequest.FromString,
+      'Thread': grpc.unary_stream_rpc_method_handler(
+          servicer.Thread,
+          request_deserializer=post__pb2.ThreadRequest.FromString,
           response_serializer=post__pb2.Post.SerializeToString,
       ),
   }

@@ -27,9 +27,9 @@ class PostsServicer(post_pb2_grpc.PostsServicer):
       context.set_details('Replies need inReplyTo, OPs need conversationTitle')
       raise Exception('Invalid arguments!')
     post = post_pb2.Post()
-    post.id = uuid.uuid5(uuid.NAMESPACE_DNS, 'apptomagic.com').hex
+    post.id = str(uuid.uuid4())
     post.text = request.text
-    post.authorDisplayName = request.authorDisplayName
+    post.authorDisplayName = request.authorDisplayName or 'Anonymous Coward'
     post.conversationTitle = request.conversationTitle
     post.inReplyTo = request.inReplyTo
     post.created.GetCurrentTime()
@@ -37,6 +37,26 @@ class PostsServicer(post_pb2_grpc.PostsServicer):
     posts.append(post)
     print('After answering request, posts is:\n', repr(posts))
     return post
+  
+  def PostsByUser(self, request, context):
+    if request.watch:
+      return super().PostsByUser(request, context)
+    for post in posts:
+      # TODO when we have proper auth we'll use user IDs, for now display names
+      if (post.authorDisplayName == request.authorId) or (post.authorId == request.authorId):
+        yield post
+
+  def Thread(self, request, context):
+    if request.watch:
+      return super().Thread(request, context)
+    thread = [request.postId]
+    for post in posts:
+      if post.id == request.postId:
+        yield post
+      elif post.inReplyTo in thread:
+        if not request.shallow:
+          thread.append(post.id)
+        yield post
 
   def start_server(self):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
