@@ -11,6 +11,23 @@ from google.protobuf.timestamp_pb2 import Timestamp
 
 posts = []
 
+class Pager(object):
+  def __init__(self, request):
+    self.after = request.after
+    self.since = request.since.ToNanoseconds()
+    self.seen = not self.after
+  
+  def __call__(self, post):
+    if self.since > post.created.ToNanoseconds(): return False
+    if self.after:
+      if self.seen:
+        return True
+      if post.id == self.after:
+        self.seen = True
+        return False
+      return False
+    return True
+
 class PostsServicer(post_pb2_grpc.PostsServicer):
   """gRPC server for Posts"""
   def __init__(self):
@@ -41,22 +58,25 @@ class PostsServicer(post_pb2_grpc.PostsServicer):
   def PostsByUser(self, request, context):
     if request.watch:
       return super().PostsByUser(request, context)
+    pager = Pager(request)
     for post in posts:
       # TODO when we have proper auth we'll use user IDs, for now display names
-      if (post.authorDisplayName == request.authorId) or (post.authorId == request.authorId):
+      if (post.authorDisplayName == request.authorId) or (post.authorId == request.authorId) and pager(post):
         yield post
 
   def Thread(self, request, context):
     if request.watch:
       return super().Thread(request, context)
     thread = [request.postId]
+    pager = Pager(request)
     for post in posts:
-      if post.id == request.postId:
+      if post.id == request.postId and pager(post):
         yield post
       elif post.inReplyTo in thread:
         if not request.shallow:
           thread.append(post.id)
-        yield post
+        if pager(post):
+          yield post
 
   def start_server(self):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
