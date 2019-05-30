@@ -14,6 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__pb2
+from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
 DESCRIPTOR = _descriptor.FileDescriptor(
@@ -21,9 +22,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='kittens.post',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\npost.proto\x12\x0ckittens.post\x1a\x1fgoogle/protobuf/timestamp.proto\"\x80\x02\n\x04Post\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\x10\n\x08\x61uthorId\x18\x03 \x01(\t\x12\x19\n\x11\x61uthorDisplayName\x18\x04 \x01(\t\x12\x16\n\x0e\x63onversationId\x18\x05 \x01(\t\x12\x19\n\x11\x63onversationTitle\x18\x06 \x01(\t\x12\x11\n\tinReplyTo\x18\x07 \x01(\t\x12+\n\x07\x63reated\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12+\n\x07updated\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\tretracted\x18\n \x01(\x08\"j\n\x11\x43reatePostRequest\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\x19\n\x11\x61uthorDisplayName\x18\x04 \x01(\t\x12\x19\n\x11\x63onversationTitle\x18\x06 \x01(\t\x12\x11\n\tinReplyTo\x18\x07 \x01(\t\"o\n\x12PostsByUserRequest\x12\x10\n\x08\x61uthorId\x18\x01 \x01(\t\x12\r\n\x05watch\x18\x02 \x01(\x08\x12\r\n\x05\x61\x66ter\x18\x03 \x01(\t\x12)\n\x05since\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"y\n\rThreadRequest\x12\x0e\n\x06postId\x18\x01 \x01(\t\x12\x0f\n\x07shallow\x18\x02 \x01(\x08\x12\r\n\x05watch\x18\x03 \x01(\x08\x12\r\n\x05\x61\x66ter\x18\x04 \x01(\t\x12)\n\x05since\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp2\xca\x01\n\x05Posts\x12=\n\x06\x43reate\x12\x1f.kittens.post.CreatePostRequest\x1a\x12.kittens.post.Post\x12\x45\n\x0bPostsByUser\x12 .kittens.post.PostsByUserRequest\x1a\x12.kittens.post.Post0\x01\x12;\n\x06Thread\x12\x1b.kittens.post.ThreadRequest\x1a\x12.kittens.post.Post0\x01\x62\x06proto3')
+  serialized_pb=_b('\n\npost.proto\x12\x0ckittens.post\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\"\x80\x02\n\x04Post\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\x10\n\x08\x61uthorId\x18\x03 \x01(\t\x12\x19\n\x11\x61uthorDisplayName\x18\x04 \x01(\t\x12\x16\n\x0e\x63onversationId\x18\x05 \x01(\t\x12\x19\n\x11\x63onversationTitle\x18\x06 \x01(\t\x12\x11\n\tinReplyTo\x18\x07 \x01(\t\x12+\n\x07\x63reated\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12+\n\x07updated\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\tretracted\x18\n \x01(\x08\"j\n\x11\x43reatePostRequest\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\x19\n\x11\x61uthorDisplayName\x18\x04 \x01(\t\x12\x19\n\x11\x63onversationTitle\x18\x06 \x01(\t\x12\x11\n\tinReplyTo\x18\x07 \x01(\t\"o\n\x12PostsByUserRequest\x12\x10\n\x08\x61uthorId\x18\x01 \x01(\t\x12\r\n\x05watch\x18\x02 \x01(\x08\x12\r\n\x05\x61\x66ter\x18\x03 \x01(\t\x12)\n\x05since\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"y\n\rThreadRequest\x12\x0e\n\x06postId\x18\x01 \x01(\t\x12\x0f\n\x07shallow\x18\x02 \x01(\x08\x12\r\n\x05watch\x18\x03 \x01(\x08\x12\r\n\x05\x61\x66ter\x18\x04 \x01(\t\x12)\n\x05since\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"F\n\x13SetupContextRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12!\n\x05posts\x18\x02 \x03(\x0b\x32\x12.kittens.post.Post2\x95\x02\n\x05Posts\x12=\n\x06\x43reate\x12\x1f.kittens.post.CreatePostRequest\x1a\x12.kittens.post.Post\x12\x45\n\x0bPostsByUser\x12 .kittens.post.PostsByUserRequest\x1a\x12.kittens.post.Post0\x01\x12;\n\x06Thread\x12\x1b.kittens.post.ThreadRequest\x1a\x12.kittens.post.Post0\x01\x12I\n\x0cSetupContext\x12!.kittens.post.SetupContextRequest\x1a\x16.google.protobuf.Emptyb\x06proto3')
   ,
-  dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,])
+  dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,])
 
 
 
@@ -117,8 +118,8 @@ _POST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=62,
-  serialized_end=318,
+  serialized_start=91,
+  serialized_end=347,
 )
 
 
@@ -169,8 +170,8 @@ _CREATEPOSTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=320,
-  serialized_end=426,
+  serialized_start=349,
+  serialized_end=455,
 )
 
 
@@ -221,8 +222,8 @@ _POSTSBYUSERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=428,
-  serialized_end=539,
+  serialized_start=457,
+  serialized_end=568,
 )
 
 
@@ -280,18 +281,58 @@ _THREADREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=541,
-  serialized_end=662,
+  serialized_start=570,
+  serialized_end=691,
+)
+
+
+_SETUPCONTEXTREQUEST = _descriptor.Descriptor(
+  name='SetupContextRequest',
+  full_name='kittens.post.SetupContextRequest',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='name', full_name='kittens.post.SetupContextRequest.name', index=0,
+      number=1, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='posts', full_name='kittens.post.SetupContextRequest.posts', index=1,
+      number=2, type=11, cpp_type=10, label=3,
+      has_default_value=False, default_value=[],
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=693,
+  serialized_end=763,
 )
 
 _POST.fields_by_name['created'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _POST.fields_by_name['updated'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _POSTSBYUSERREQUEST.fields_by_name['since'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _THREADREQUEST.fields_by_name['since'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
+_SETUPCONTEXTREQUEST.fields_by_name['posts'].message_type = _POST
 DESCRIPTOR.message_types_by_name['Post'] = _POST
 DESCRIPTOR.message_types_by_name['CreatePostRequest'] = _CREATEPOSTREQUEST
 DESCRIPTOR.message_types_by_name['PostsByUserRequest'] = _POSTSBYUSERREQUEST
 DESCRIPTOR.message_types_by_name['ThreadRequest'] = _THREADREQUEST
+DESCRIPTOR.message_types_by_name['SetupContextRequest'] = _SETUPCONTEXTREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Post = _reflection.GeneratedProtocolMessageType('Post', (_message.Message,), dict(
@@ -322,6 +363,13 @@ ThreadRequest = _reflection.GeneratedProtocolMessageType('ThreadRequest', (_mess
   ))
 _sym_db.RegisterMessage(ThreadRequest)
 
+SetupContextRequest = _reflection.GeneratedProtocolMessageType('SetupContextRequest', (_message.Message,), dict(
+  DESCRIPTOR = _SETUPCONTEXTREQUEST,
+  __module__ = 'post_pb2'
+  # @@protoc_insertion_point(class_scope:kittens.post.SetupContextRequest)
+  ))
+_sym_db.RegisterMessage(SetupContextRequest)
+
 
 
 _POSTS = _descriptor.ServiceDescriptor(
@@ -330,8 +378,8 @@ _POSTS = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=665,
-  serialized_end=867,
+  serialized_start=766,
+  serialized_end=1043,
   methods=[
   _descriptor.MethodDescriptor(
     name='Create',
@@ -358,6 +406,15 @@ _POSTS = _descriptor.ServiceDescriptor(
     containing_service=None,
     input_type=_THREADREQUEST,
     output_type=_POST,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='SetupContext',
+    full_name='kittens.post.Posts.SetupContext',
+    index=3,
+    containing_service=None,
+    input_type=_SETUPCONTEXTREQUEST,
+    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
     serialized_options=None,
   ),
 ])

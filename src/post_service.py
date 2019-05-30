@@ -8,8 +8,23 @@ import uuid
 
 from grpc_reflection.v1alpha import reflection
 from google.protobuf.timestamp_pb2 import Timestamp
+from google.protobuf.empty_pb2 import Empty
 
-posts = []
+posts = {'': []}
+
+class IterWithContext(object):
+  def __init__(self, collection, context):
+    self.collection = collection
+    self.contexts = ['']
+    for md in context.invocation_metadata():
+      if md.key == 'use-data-contexts':
+        self.contexts = md.value.split('+')
+  
+  def __iter__(self):
+    # for now we only support one context, as more than one will complicate things
+    # with regards to sorting and duplicates/cow
+    for item in self.collection[self.contexts[0]]:
+      yield item
 
 class Pager(object):
   def __init__(self, request):
@@ -31,10 +46,10 @@ class Pager(object):
 class PostsServicer(post_pb2_grpc.PostsServicer):
   """gRPC server for Posts"""
   def __init__(self):
-    posts.clear()
+    posts[''].clear()
   
   def Create(self, request, context):
-    print('Got create post request')
+    print('Got create post request', context.invocation_metadata())
     if not (request.text.strip()):
       context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
       context.set_details('Post text can\'t be empty')
@@ -51,7 +66,7 @@ class PostsServicer(post_pb2_grpc.PostsServicer):
     post.inReplyTo = request.inReplyTo
     post.created.GetCurrentTime()
     post.updated.FromNanoseconds(post.created.ToNanoseconds())
-    posts.append(post)
+    posts[''].append(post)
     print('After answering request, posts is:\n', repr(posts))
     return post
   
@@ -59,7 +74,7 @@ class PostsServicer(post_pb2_grpc.PostsServicer):
     if request.watch:
       return super().PostsByUser(request, context)
     pager = Pager(request)
-    for post in posts:
+    for post in IterWithContext(posts, context):
       # TODO when we have proper auth we'll use user IDs, for now display names
       if (post.authorDisplayName == request.authorId) or (post.authorId == request.authorId) and pager(post):
         yield post
@@ -69,7 +84,7 @@ class PostsServicer(post_pb2_grpc.PostsServicer):
       return super().Thread(request, context)
     thread = [request.postId]
     pager = Pager(request)
-    for post in posts:
+    for post in IterWithContext(posts, context):
       if post.id == request.postId and pager(post):
         yield post
       elif post.inReplyTo in thread:
@@ -77,6 +92,13 @@ class PostsServicer(post_pb2_grpc.PostsServicer):
           thread.append(post.id)
         if pager(post):
           yield post
+  
+  ########################################################################
+  # admin/testing
+  def SetupContext(self, request, context):
+    print('got context request', request)
+    posts[request.name] = request.posts
+    return Empty()
 
   def start_server(self):
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
