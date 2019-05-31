@@ -22,7 +22,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='kittens.post',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\npost.proto\x12\x0ckittens.post\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\"\x80\x02\n\x04Post\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\x10\n\x08\x61uthorId\x18\x03 \x01(\t\x12\x19\n\x11\x61uthorDisplayName\x18\x04 \x01(\t\x12\x16\n\x0e\x63onversationId\x18\x05 \x01(\t\x12\x19\n\x11\x63onversationTitle\x18\x06 \x01(\t\x12\x11\n\tinReplyTo\x18\x07 \x01(\t\x12+\n\x07\x63reated\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12+\n\x07updated\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\tretracted\x18\n \x01(\x08\"j\n\x11\x43reatePostRequest\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\x19\n\x11\x61uthorDisplayName\x18\x04 \x01(\t\x12\x19\n\x11\x63onversationTitle\x18\x06 \x01(\t\x12\x11\n\tinReplyTo\x18\x07 \x01(\t\"o\n\x12PostsByUserRequest\x12\x10\n\x08\x61uthorId\x18\x01 \x01(\t\x12\r\n\x05watch\x18\x02 \x01(\x08\x12\r\n\x05\x61\x66ter\x18\x03 \x01(\t\x12)\n\x05since\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"y\n\rThreadRequest\x12\x0e\n\x06postId\x18\x01 \x01(\t\x12\x0f\n\x07shallow\x18\x02 \x01(\x08\x12\r\n\x05watch\x18\x03 \x01(\x08\x12\r\n\x05\x61\x66ter\x18\x04 \x01(\t\x12)\n\x05since\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"F\n\x13SetupContextRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12!\n\x05posts\x18\x02 \x03(\x0b\x32\x12.kittens.post.Post2\x95\x02\n\x05Posts\x12=\n\x06\x43reate\x12\x1f.kittens.post.CreatePostRequest\x1a\x12.kittens.post.Post\x12\x45\n\x0bPostsByUser\x12 .kittens.post.PostsByUserRequest\x1a\x12.kittens.post.Post0\x01\x12;\n\x06Thread\x12\x1b.kittens.post.ThreadRequest\x1a\x12.kittens.post.Post0\x01\x12I\n\x0cSetupContext\x12!.kittens.post.SetupContextRequest\x1a\x16.google.protobuf.Emptyb\x06proto3')
+  serialized_pb=_b('\n\npost.proto\x12\x0ckittens.post\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\"\x80\x02\n\x04Post\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04text\x18\x02 \x01(\t\x12\x10\n\x08\x61uthorId\x18\x03 \x01(\t\x12\x19\n\x11\x61uthorDisplayName\x18\x04 \x01(\t\x12\x16\n\x0e\x63onversationId\x18\x05 \x01(\t\x12\x19\n\x11\x63onversationTitle\x18\x06 \x01(\t\x12\x11\n\tinReplyTo\x18\x07 \x01(\t\x12+\n\x07\x63reated\x18\x08 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12+\n\x07updated\x18\t \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12\x11\n\tretracted\x18\n \x01(\x08\"h\n\x11\x43reatePostRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\x1a\n\x11\x61uthorDisplayName\x18\xe0\x07 \x01(\t\x12\x16\n\x0e\x63onversationId\x18\x03 \x01(\t\x12\x11\n\tinReplyTo\x18\x04 \x01(\t\"o\n\x12PostsByUserRequest\x12\x10\n\x08\x61uthorId\x18\x01 \x01(\t\x12\r\n\x05watch\x18\x02 \x01(\x08\x12\r\n\x05\x61\x66ter\x18\x03 \x01(\t\x12)\n\x05since\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"y\n\rThreadRequest\x12\x0e\n\x06postId\x18\x01 \x01(\t\x12\x0f\n\x07shallow\x18\x02 \x01(\x08\x12\r\n\x05watch\x18\x03 \x01(\x08\x12\r\n\x05\x61\x66ter\x18\x04 \x01(\t\x12)\n\x05since\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"F\n\x13SetupContextRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12!\n\x05posts\x18\x02 \x03(\x0b\x32\x12.kittens.post.Post2\x95\x02\n\x05Posts\x12=\n\x06\x43reate\x12\x1f.kittens.post.CreatePostRequest\x1a\x12.kittens.post.Post\x12\x45\n\x0bPostsByUser\x12 .kittens.post.PostsByUserRequest\x1a\x12.kittens.post.Post0\x01\x12;\n\x06Thread\x12\x1b.kittens.post.ThreadRequest\x1a\x12.kittens.post.Post0\x01\x12I\n\x0cSetupContext\x12!.kittens.post.SetupContextRequest\x1a\x16.google.protobuf.Emptyb\x06proto3')
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,])
 
@@ -132,28 +132,28 @@ _CREATEPOSTREQUEST = _descriptor.Descriptor(
   fields=[
     _descriptor.FieldDescriptor(
       name='text', full_name='kittens.post.CreatePostRequest.text', index=0,
-      number=2, type=9, cpp_type=9, label=1,
+      number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='authorDisplayName', full_name='kittens.post.CreatePostRequest.authorDisplayName', index=1,
-      number=4, type=9, cpp_type=9, label=1,
+      number=992, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='conversationTitle', full_name='kittens.post.CreatePostRequest.conversationTitle', index=2,
-      number=6, type=9, cpp_type=9, label=1,
+      name='conversationId', full_name='kittens.post.CreatePostRequest.conversationId', index=2,
+      number=3, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='inReplyTo', full_name='kittens.post.CreatePostRequest.inReplyTo', index=3,
-      number=7, type=9, cpp_type=9, label=1,
+      number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -171,7 +171,7 @@ _CREATEPOSTREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=349,
-  serialized_end=455,
+  serialized_end=453,
 )
 
 
@@ -222,8 +222,8 @@ _POSTSBYUSERREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=457,
-  serialized_end=568,
+  serialized_start=455,
+  serialized_end=566,
 )
 
 
@@ -281,8 +281,8 @@ _THREADREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=570,
-  serialized_end=691,
+  serialized_start=568,
+  serialized_end=689,
 )
 
 
@@ -319,8 +319,8 @@ _SETUPCONTEXTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=693,
-  serialized_end=763,
+  serialized_start=691,
+  serialized_end=761,
 )
 
 _POST.fields_by_name['created'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
@@ -378,8 +378,8 @@ _POSTS = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=766,
-  serialized_end=1043,
+  serialized_start=764,
+  serialized_end=1041,
   methods=[
   _descriptor.MethodDescriptor(
     name='Create',

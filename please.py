@@ -13,6 +13,11 @@ import subprocess
 import sys
 import time
 
+PROTOS = [
+  'post',
+  'conversation',
+]
+
 def install_deps(config):
   # The pip docs specifically tell us not to do this… but IRL we can't trust our PATH in a cross-platform way, and we want to minimize upfront setup on  developer machines since this prototype is a temporary artifact
   from pip._internal import main as pip
@@ -27,10 +32,11 @@ def build_proto(config):
     "protoc", # first one is ignored, as it would normally be sys.argv[0]
     "--python_out=./src",
     "--grpc_python_out=./src",
-    config.path + "/post.proto",
+    # proto files go here,
     "--proto_path=" + proto_include,
     "--proto_path=" + config.path,
   ]
+  args[3:3] = [config.path + "/" + proto + ".proto" for proto in PROTOS]
   print(args)
   res = main(args)
 
