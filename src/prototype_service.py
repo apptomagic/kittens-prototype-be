@@ -7,7 +7,7 @@ import post_pb2
 import post_pb2_grpc
 from post_service import PostsServicer
 
-def start_server(self):
+def start_server():
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
   post_pb2_grpc.add_PostsServicer_to_server(PostsServicer(), server)
 
@@ -33,5 +33,4 @@ def start_server(self):
     print('Prototype Server Stopped ...')
 
 if __name__ == '__main__':
-  server = PostsServicer()
-  server.start_server()
+  start_server()
