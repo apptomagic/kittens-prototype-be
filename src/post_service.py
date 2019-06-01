@@ -67,7 +67,15 @@ class PostsServicer(post_pb2_grpc.PostsServicer):
           thread.append(post.id)
         if pager(post):
           yield post
-  
+
+  def Conversation(self, request, context):
+    if request.watch:
+      return super().Conversation(request, context)
+    pager = posts.pager(request)
+    for post in posts.iter_with_context(context):
+      if post.conversationId == request.conversationId and pager(post):
+        yield post
+
   ########################################################################
   # admin/testing
   def SetupContext(self, request, context):

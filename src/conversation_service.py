@@ -50,21 +50,6 @@ class ConversationsServicer(conversation_pb2_grpc.ConversationsServicer):
       conversation = conversation,
       op = post,
     )
-
-  def Thread(self, request, context):
-    if request.watch:
-      return super().Thread(request, context)
-    from db import posts
-    conversation = conversations.get_one(request.conversationId, context)
-    thread = [conversation.opId]
-    pager = posts.pager(request)
-    for post in posts.iter_with_context(context):
-      if post.id == conversation.opId and pager(post):
-        yield post
-      elif post.inReplyTo in thread:
-        thread.append(post.id)
-        if pager(post):
-          yield post
   
   ########################################################################
   # admin/testing

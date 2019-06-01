@@ -32,6 +32,11 @@ class PostsStub(object):
         request_serializer=post__pb2.ThreadRequest.SerializeToString,
         response_deserializer=post__pb2.Post.FromString,
         )
+    self.Conversation = channel.unary_stream(
+        '/kittens.post.Posts/Conversation',
+        request_serializer=post__pb2.ConversationRequest.SerializeToString,
+        response_deserializer=post__pb2.Post.FromString,
+        )
     self.SetupContext = channel.unary_unary(
         '/kittens.post.Posts/SetupContext',
         request_serializer=post__pb2.SetupContextRequest.SerializeToString,
@@ -66,6 +71,13 @@ class PostsServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def Conversation(self, request, context):
+    """All posts in a conversation
+    """
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
   def SetupContext(self, request, context):
     """//////////////////////////////////////////////////////////////////////
     admin/testing
@@ -90,6 +102,11 @@ def add_PostsServicer_to_server(servicer, server):
       'Thread': grpc.unary_stream_rpc_method_handler(
           servicer.Thread,
           request_deserializer=post__pb2.ThreadRequest.FromString,
+          response_serializer=post__pb2.Post.SerializeToString,
+      ),
+      'Conversation': grpc.unary_stream_rpc_method_handler(
+          servicer.Conversation,
+          request_deserializer=post__pb2.ConversationRequest.FromString,
           response_serializer=post__pb2.Post.SerializeToString,
       ),
       'SetupContext': grpc.unary_unary_rpc_method_handler(
