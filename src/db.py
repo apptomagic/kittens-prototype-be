@@ -19,11 +19,13 @@ class Pager(object):
 
 class Collection(dict):
   def __init__(self):
+    self.indexes = {}
     self.clear_all()
 
   def clear_all(self):
     self.clear()
     self[''] = []
+    self.indexes[''] = {}
     
   def get_contexts(self, context):
     contexts = ['']
@@ -44,8 +46,18 @@ class Collection(dict):
   def append(self, item, context):
     self[self.get_contexts(context)[0]].append(item)
   
+  def get_one(self, id, context):
+    for ctx in self.get_contexts(context):
+      if id in self.indexes[ctx]:
+        return self.indexes[ctx][id]
+    raise KeyError(id)
+  
   def populate(self, name, content):
     self[name] = list(content)
+    self.indexes[name] = {}
+    for item in self[name]:
+      self.indexes[name][item.id] = item
 
 
 posts = Collection()
+conversations = Collection()

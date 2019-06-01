@@ -21,7 +21,7 @@ class ConversationsStub(object):
     self.Create = channel.unary_unary(
         '/kittens.conversation.Conversations/Create',
         request_serializer=conversation__pb2.CreateConversationRequest.SerializeToString,
-        response_deserializer=conversation__pb2.Conversation.FromString,
+        response_deserializer=conversation__pb2.CreateConversationResponse.FromString,
         )
     self.Thread = channel.unary_stream(
         '/kittens.conversation.Conversations/Thread',
@@ -69,7 +69,7 @@ def add_ConversationsServicer_to_server(servicer, server):
       'Create': grpc.unary_unary_rpc_method_handler(
           servicer.Create,
           request_deserializer=conversation__pb2.CreateConversationRequest.FromString,
-          response_serializer=conversation__pb2.Conversation.SerializeToString,
+          response_serializer=conversation__pb2.CreateConversationResponse.SerializeToString,
       ),
       'Thread': grpc.unary_stream_rpc_method_handler(
           servicer.Thread,

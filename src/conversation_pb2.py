@@ -23,7 +23,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='kittens.conversation',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x12\x63onversation.proto\x12\x14kittens.conversation\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\npost.proto\"!\n\x05Topic\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"G\n\x0c\x43onversation\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0c\n\x04opId\x18\x03 \x01(\t\x12\x0e\n\x06topics\x18\x04 \x03(\t\"p\n\x19\x43reateConversationRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x1a\n\x11\x61uthorDisplayName\x18\xe1\x07 \x01(\t\x12\x0e\n\x06topics\x18\x04 \x03(\t\x12\x0c\n\x04text\x18\x05 \x01(\t\"p\n\rThreadRequest\x12\x16\n\x0e\x63onversationId\x18\x01 \x01(\t\x12\r\n\x05watch\x18\x02 \x01(\x08\x12\r\n\x05\x61\x66ter\x18\x03 \x01(\t\x12)\n\x05since\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"^\n\x13SetupContextRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x39\n\rconversations\x18\x02 \x03(\x0b\x32\".kittens.conversation.Conversation2\x86\x02\n\rConversations\x12]\n\x06\x43reate\x12/.kittens.conversation.CreateConversationRequest\x1a\".kittens.conversation.Conversation\x12\x43\n\x06Thread\x12#.kittens.conversation.ThreadRequest\x1a\x12.kittens.post.Post0\x01\x12Q\n\x0cSetupContext\x12).kittens.conversation.SetupContextRequest\x1a\x16.google.protobuf.Emptyb\x06proto3')
+  serialized_pb=_b('\n\x12\x63onversation.proto\x12\x14kittens.conversation\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\x1a\npost.proto\"!\n\x05Topic\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\"G\n\x0c\x43onversation\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0c\n\x04opId\x18\x03 \x01(\t\x12\x0e\n\x06topics\x18\x04 \x03(\t\"d\n\x19\x43reateConversationRequest\x12\r\n\x05title\x18\x01 \x01(\t\x12\x1a\n\x11\x61uthorDisplayName\x18\x86\x07 \x01(\t\x12\x0e\n\x06topics\x18\x03 \x03(\t\x12\x0c\n\x04text\x18\x04 \x01(\t\"v\n\x1a\x43reateConversationResponse\x12\x38\n\x0c\x63onversation\x18\x01 \x01(\x0b\x32\".kittens.conversation.Conversation\x12\x1e\n\x02op\x18\x02 \x01(\x0b\x32\x12.kittens.post.Post\"p\n\rThreadRequest\x12\x16\n\x0e\x63onversationId\x18\x01 \x01(\t\x12\r\n\x05watch\x18\x02 \x01(\x08\x12\r\n\x05\x61\x66ter\x18\x03 \x01(\t\x12)\n\x05since\x18\x04 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\"^\n\x13SetupContextRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\x39\n\rconversations\x18\x02 \x03(\x0b\x32\".kittens.conversation.Conversation2\x94\x02\n\rConversations\x12k\n\x06\x43reate\x12/.kittens.conversation.CreateConversationRequest\x1a\x30.kittens.conversation.CreateConversationResponse\x12\x43\n\x06Thread\x12#.kittens.conversation.ThreadRequest\x1a\x12.kittens.post.Post0\x01\x12Q\n\x0cSetupContext\x12).kittens.conversation.SetupContextRequest\x1a\x16.google.protobuf.Emptyb\x06proto3')
   ,
   dependencies=[google_dot_protobuf_dot_timestamp__pb2.DESCRIPTOR,google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,post__pb2.DESCRIPTOR,])
 
@@ -128,36 +128,29 @@ _CREATECONVERSATIONREQUEST = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='id', full_name='kittens.conversation.CreateConversationRequest.id', index=0,
+      name='title', full_name='kittens.conversation.CreateConversationRequest.title', index=0,
       number=1, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='title', full_name='kittens.conversation.CreateConversationRequest.title', index=1,
-      number=2, type=9, cpp_type=9, label=1,
+      name='authorDisplayName', full_name='kittens.conversation.CreateConversationRequest.authorDisplayName', index=1,
+      number=902, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='authorDisplayName', full_name='kittens.conversation.CreateConversationRequest.authorDisplayName', index=2,
-      number=993, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=_b("").decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='topics', full_name='kittens.conversation.CreateConversationRequest.topics', index=3,
-      number=4, type=9, cpp_type=9, label=3,
+      name='topics', full_name='kittens.conversation.CreateConversationRequest.topics', index=2,
+      number=3, type=9, cpp_type=9, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
-      name='text', full_name='kittens.conversation.CreateConversationRequest.text', index=4,
-      number=5, type=9, cpp_type=9, label=1,
+      name='text', full_name='kittens.conversation.CreateConversationRequest.text', index=3,
+      number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -175,7 +168,45 @@ _CREATECONVERSATIONREQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=226,
-  serialized_end=338,
+  serialized_end=326,
+)
+
+
+_CREATECONVERSATIONRESPONSE = _descriptor.Descriptor(
+  name='CreateConversationResponse',
+  full_name='kittens.conversation.CreateConversationResponse',
+  filename=None,
+  file=DESCRIPTOR,
+  containing_type=None,
+  fields=[
+    _descriptor.FieldDescriptor(
+      name='conversation', full_name='kittens.conversation.CreateConversationResponse.conversation', index=0,
+      number=1, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='op', full_name='kittens.conversation.CreateConversationResponse.op', index=1,
+      number=2, type=11, cpp_type=10, label=1,
+      has_default_value=False, default_value=None,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
+  ],
+  extensions=[
+  ],
+  nested_types=[],
+  enum_types=[
+  ],
+  serialized_options=None,
+  is_extendable=False,
+  syntax='proto3',
+  extension_ranges=[],
+  oneofs=[
+  ],
+  serialized_start=328,
+  serialized_end=446,
 )
 
 
@@ -226,8 +257,8 @@ _THREADREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=340,
-  serialized_end=452,
+  serialized_start=448,
+  serialized_end=560,
 )
 
 
@@ -264,15 +295,18 @@ _SETUPCONTEXTREQUEST = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=454,
-  serialized_end=548,
+  serialized_start=562,
+  serialized_end=656,
 )
 
+_CREATECONVERSATIONRESPONSE.fields_by_name['conversation'].message_type = _CONVERSATION
+_CREATECONVERSATIONRESPONSE.fields_by_name['op'].message_type = post__pb2._POST
 _THREADREQUEST.fields_by_name['since'].message_type = google_dot_protobuf_dot_timestamp__pb2._TIMESTAMP
 _SETUPCONTEXTREQUEST.fields_by_name['conversations'].message_type = _CONVERSATION
 DESCRIPTOR.message_types_by_name['Topic'] = _TOPIC
 DESCRIPTOR.message_types_by_name['Conversation'] = _CONVERSATION
 DESCRIPTOR.message_types_by_name['CreateConversationRequest'] = _CREATECONVERSATIONREQUEST
+DESCRIPTOR.message_types_by_name['CreateConversationResponse'] = _CREATECONVERSATIONRESPONSE
 DESCRIPTOR.message_types_by_name['ThreadRequest'] = _THREADREQUEST
 DESCRIPTOR.message_types_by_name['SetupContextRequest'] = _SETUPCONTEXTREQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
@@ -298,6 +332,13 @@ CreateConversationRequest = _reflection.GeneratedProtocolMessageType('CreateConv
   ))
 _sym_db.RegisterMessage(CreateConversationRequest)
 
+CreateConversationResponse = _reflection.GeneratedProtocolMessageType('CreateConversationResponse', (_message.Message,), dict(
+  DESCRIPTOR = _CREATECONVERSATIONRESPONSE,
+  __module__ = 'conversation_pb2'
+  # @@protoc_insertion_point(class_scope:kittens.conversation.CreateConversationResponse)
+  ))
+_sym_db.RegisterMessage(CreateConversationResponse)
+
 ThreadRequest = _reflection.GeneratedProtocolMessageType('ThreadRequest', (_message.Message,), dict(
   DESCRIPTOR = _THREADREQUEST,
   __module__ = 'conversation_pb2'
@@ -320,8 +361,8 @@ _CONVERSATIONS = _descriptor.ServiceDescriptor(
   file=DESCRIPTOR,
   index=0,
   serialized_options=None,
-  serialized_start=551,
-  serialized_end=813,
+  serialized_start=659,
+  serialized_end=935,
   methods=[
   _descriptor.MethodDescriptor(
     name='Create',
@@ -329,7 +370,7 @@ _CONVERSATIONS = _descriptor.ServiceDescriptor(
     index=0,
     containing_service=None,
     input_type=_CREATECONVERSATIONREQUEST,
-    output_type=_CONVERSATION,
+    output_type=_CREATECONVERSATIONRESPONSE,
     serialized_options=None,
   ),
   _descriptor.MethodDescriptor(

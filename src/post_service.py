@@ -22,7 +22,7 @@ class PostsServicer(post_pb2_grpc.PostsServicer):
       raise Exception('Invalid arguments!')
     if not (request.conversationId or request.inReplyTo):
       context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-      context.set_details('Replies need inReplyTo, OPs need conversationId')
+      context.set_details('Posts need conversationId')
       raise Exception('Invalid arguments!')
     post = post_pb2.Post()
     post.id = str(uuid.uuid4())

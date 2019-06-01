@@ -5,14 +5,19 @@ from grpc_reflection.v1alpha import reflection
 
 import post_pb2
 import post_pb2_grpc
+import conversation_pb2
+import conversation_pb2_grpc
 from post_service import PostsServicer
+from conversation_service import ConversationsServicer
 
 def start_server():
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
   post_pb2_grpc.add_PostsServicer_to_server(PostsServicer(), server)
+  conversation_pb2_grpc.add_ConversationsServicer_to_server(ConversationsServicer(), server)
 
   SERVICE_NAMES = (
       post_pb2.DESCRIPTOR.services_by_name['Posts'].full_name,
+      conversation_pb2.DESCRIPTOR.services_by_name['Conversations'].full_name,
       reflection.SERVICE_NAME,
   )
   reflection.enable_server_reflection(SERVICE_NAMES, server)
