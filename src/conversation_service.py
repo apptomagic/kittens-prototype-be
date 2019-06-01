@@ -46,10 +46,25 @@ class ConversationsServicer(conversation_pb2_grpc.ConversationsServicer):
     conversation.topics.extend(request.topics)
     conversations.append(conversation, context)
     print('After answering request, conversations is:\n', repr(conversations))
-    return conversation_pb2.CreateConversationResponse(
+    return conversation_pb2.ConversationAndOP(
       conversation = conversation,
       op = post,
     )
+
+  def ByTopic(self, request, context):
+    if request.watch:
+      return super().ByTopic(request, context)
+    from db import posts
+    pager = conversations.pager(request)
+    for conversation in conversations.iter_with_context(context):
+      if request.topic in conversation.topics:
+        op = posts.get_one(conversation.opId, context)
+        if pager(conversation, op.created):
+          yield conversation_pb2.ConversationAndOP(
+            conversation = conversation,
+            op = op,
+          )
+
   
   ########################################################################
   # admin/testing

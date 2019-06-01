@@ -20,7 +20,12 @@ class ConversationsStub(object):
     self.Create = channel.unary_unary(
         '/kittens.conversation.Conversations/Create',
         request_serializer=conversation__pb2.CreateConversationRequest.SerializeToString,
-        response_deserializer=conversation__pb2.CreateConversationResponse.FromString,
+        response_deserializer=conversation__pb2.ConversationAndOP.FromString,
+        )
+    self.ByTopic = channel.unary_stream(
+        '/kittens.conversation.Conversations/ByTopic',
+        request_serializer=conversation__pb2.ConversationsByTopicRequest.SerializeToString,
+        response_deserializer=conversation__pb2.ConversationAndOP.FromString,
         )
     self.SetupContext = channel.unary_unary(
         '/kittens.conversation.Conversations/SetupContext',
@@ -42,6 +47,13 @@ class ConversationsServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def ByTopic(self, request, context):
+    # missing associated documentation comment in .proto file
+    pass
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
   def SetupContext(self, request, context):
     """//////////////////////////////////////////////////////////////////////
     admin/testing
@@ -56,7 +68,12 @@ def add_ConversationsServicer_to_server(servicer, server):
       'Create': grpc.unary_unary_rpc_method_handler(
           servicer.Create,
           request_deserializer=conversation__pb2.CreateConversationRequest.FromString,
-          response_serializer=conversation__pb2.CreateConversationResponse.SerializeToString,
+          response_serializer=conversation__pb2.ConversationAndOP.SerializeToString,
+      ),
+      'ByTopic': grpc.unary_stream_rpc_method_handler(
+          servicer.ByTopic,
+          request_deserializer=conversation__pb2.ConversationsByTopicRequest.FromString,
+          response_serializer=conversation__pb2.ConversationAndOP.SerializeToString,
       ),
       'SetupContext': grpc.unary_unary_rpc_method_handler(
           servicer.SetupContext,

@@ -5,8 +5,11 @@ class Pager(object):
     self.since = request.since.ToNanoseconds()
     self.seen = not self.after
   
-  def __call__(self, item):
-    if self.since > item.created.ToNanoseconds(): return False
+  def __call__(self, item, timestamp = None):
+    if timestamp is None and hasattr(item, 'created'):
+      timestamp = item.created
+    if timestamp is not None and self.since > timestamp.ToNanoseconds():
+      return False
     if self.after:
       if self.seen:
         return True
