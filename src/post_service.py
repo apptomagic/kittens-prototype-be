@@ -1,5 +1,4 @@
 import grpc
-import hashlib
 import uuid
 from google.protobuf.timestamp_pb2 import Timestamp
 from google.protobuf.empty_pb2 import Empty
@@ -7,13 +6,13 @@ from google.protobuf.empty_pb2 import Empty
 import post_pb2
 import post_pb2_grpc
 
-from db import posts, IterWithContext, Pager
+from db import posts
 
 
 class PostsServicer(post_pb2_grpc.PostsServicer):
   """gRPC server for Posts"""
   def __init__(self):
-    posts[''].clear()
+    posts.clear_all()
   
   def Create(self, request, context):
     print('Got create post request', context.invocation_metadata())
@@ -34,15 +33,15 @@ class PostsServicer(post_pb2_grpc.PostsServicer):
     post.inReplyTo = request.inReplyTo
     post.created.GetCurrentTime()
     post.updated.FromNanoseconds(post.created.ToNanoseconds())
-    posts[''].append(post)
+    posts.append(post, context)
     print('After answering request, posts is:\n', repr(posts))
     return post
   
   def PostsByUser(self, request, context):
     if request.watch:
       return super().PostsByUser(request, context)
-    pager = Pager(request)
-    for post in IterWithContext(posts, context):
+    pager = posts.pager(request)
+    for post in posts.iter_with_context(context):
       # TODO when we have proper auth we'll use user IDs, for now display names
       if (post.authorDisplayName == request.authorId) or (post.authorId == request.authorId) and pager(post):
         yield post
@@ -51,8 +50,8 @@ class PostsServicer(post_pb2_grpc.PostsServicer):
     if request.watch:
       return super().Thread(request, context)
     thread = [request.postId]
-    pager = Pager(request)
-    for post in IterWithContext(posts, context):
+    pager = posts.pager(request)
+    for post in posts.iter_with_context(context):
       if post.id == request.postId and pager(post):
         yield post
       elif post.inReplyTo in thread:
@@ -65,5 +64,5 @@ class PostsServicer(post_pb2_grpc.PostsServicer):
   # admin/testing
   def SetupContext(self, request, context):
     print('got context request', request)
-    posts[request.name] = request.posts
+    posts.populate(request.name, request.posts)
     return Empty()
