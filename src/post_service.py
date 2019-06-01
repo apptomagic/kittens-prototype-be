@@ -16,14 +16,22 @@ class PostsServicer(post_pb2_grpc.PostsServicer):
   
   def Create(self, request, context):
     print('Got create post request', context.invocation_metadata())
-    if not (request.text.strip()):
+    if not request.text.strip():
       context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
-      context.set_details('Post text can\'t be empty')
+      context.set_details('Posts need text')
       raise Exception('Invalid arguments!')
     if not (request.conversationId or request.inReplyTo):
       context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
       context.set_details('Posts need conversationId')
       raise Exception('Invalid arguments!')
+    if not request.conversationId:
+      parent = posts.get_one(request.inReplyTo, context)
+      request.conversationId = parent.conversationId
+    else:
+      from db import conversations
+      conversation = conversations.get_one(request.conversationId, context)
+      if not request.inReplyTo:
+        request.inReplyTo = conversation.opId
     post = post_pb2.Post()
     post.id = str(uuid.uuid4())
     post.text = request.text
