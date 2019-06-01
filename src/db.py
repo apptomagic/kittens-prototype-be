@@ -61,3 +61,27 @@ class Collection(dict):
 
 posts = Collection()
 conversations = Collection()
+
+topics = [
+  'chat',
+  'introductions',
+  'meta',
+  'roadmap',
+  'bugs',
+  'suggestions',
+  'help',
+  'dev-help',
+  'announcements',
+  'documentation',
+  'web',
+]
+
+related = [
+  ('bugs', 'suggestions'),
+  ('chat', 'introductions'),
+  ('roadmap', 'announcements'),
+  ('help', 'bugs'),
+  ('help', 'documentation'),
+  ('dev-help', 'documentation'),
+  ('documentation', 'web'),
+]
