@@ -16,6 +16,7 @@ import time
 PROTOS = [
   'post',
   'conversation',
+  'topic',
 ]
 
 def install_deps(config):

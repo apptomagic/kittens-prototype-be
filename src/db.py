@@ -74,6 +74,7 @@ topics = [
   'announcements',
   'documentation',
   'web',
+  'sandbox',
 ]
 
 related = [
