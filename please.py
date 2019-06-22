@@ -24,6 +24,11 @@ def install_deps(config):
   from pip._internal import main as pip
   pip(['install', '-r', 'requirements.txt'])
 
+def install_test_deps(config):
+  # The pip docs specifically tell us not to do this… but IRL we can't trust our PATH in a cross-platform way, and we want to minimize upfront setup on  developer machines since this prototype is a temporary artifact
+  from pip._internal import main as pip
+  pip(['install', '-r', 'kittens-api/bdd/behave/requirements.txt'])
+
 def build_proto(config):
   from grpc_tools.protoc import main
 
@@ -52,6 +57,8 @@ if __name__ == '__main__':
 
   cmdparser = subparsers.add_parser('deps', help='Install dependencies')
   cmdparser.set_defaults(func=install_deps)
+  cmdparser = subparsers.add_parser('test-deps', help='Install test dependencies')
+  cmdparser.set_defaults(func=install_test_deps)
   cmdparser = subparsers.add_parser('proto', help='Build Python files from protobuf definitions')
   cmdparser.set_defaults(func=build_proto)
   cmdparser.add_argument('path', nargs='?', default='./kittens-api/proto')
