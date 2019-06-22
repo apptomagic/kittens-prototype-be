@@ -43,6 +43,9 @@ def build_proto(config):
 
   if res: sys.exit(res)
 
+def serve(config):
+  subprocess.run(['python', './src/prototype_service.py'])
+
 if __name__ == '__main__':
   parser = argparse.ArgumentParser(description='One-stop script for managing the service')
   subparsers = parser.add_subparsers(help='sub-command help')
@@ -52,6 +55,8 @@ if __name__ == '__main__':
   cmdparser = subparsers.add_parser('proto', help='Build Python files from protobuf definitions')
   cmdparser.set_defaults(func=build_proto)
   cmdparser.add_argument('path', nargs='?', default='../kittens-api/proto')
+  cmdparser = subparsers.add_parser('serve', help='Run server')
+  cmdparser.set_defaults(func=serve)
 
   args = parser.parse_args()
   try:

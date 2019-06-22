@@ -7,6 +7,7 @@ import post_pb2
 import post_pb2_grpc
 
 from db import posts
+from auth import get_user_from_context
 
 
 class PostsServicer(post_pb2_grpc.PostsServicer):
@@ -16,6 +17,11 @@ class PostsServicer(post_pb2_grpc.PostsServicer):
   
   def Create(self, request, context):
     print('Got create post request', context.invocation_metadata())
+    user = get_user_from_context(context)
+    if not user:
+      context.set_code(grpc.StatusCode.UNAUTHENTICATED)
+      context.set_details('Must be authenticated to post')
+      raise Exception('Unauthenticated!')
     if not request.text.strip():
       context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
       context.set_details('Posts need text')
@@ -35,7 +41,8 @@ class PostsServicer(post_pb2_grpc.PostsServicer):
     post = post_pb2.Post()
     post.id = str(uuid.uuid4())
     post.text = request.text
-    post.authorDisplayName = request.authorDisplayName or 'Anonymous Coward'
+    post.authorId = user.id
+    post.authorDisplayName = user.displayName
     post.conversationId = request.conversationId
     # TODO cache conversationTitle
     post.inReplyTo = request.inReplyTo

@@ -7,6 +7,7 @@ import conversation_pb2
 import conversation_pb2_grpc
 
 from db import conversations
+from auth import get_user_from_context
 
 
 class ConversationsServicer(conversation_pb2_grpc.ConversationsServicer):
@@ -18,6 +19,11 @@ class ConversationsServicer(conversation_pb2_grpc.ConversationsServicer):
     import post_pb2
     from db import posts
     print('Got create conversation request', context.invocation_metadata())
+    user = get_user_from_context(context)
+    if not user:
+      context.set_code(grpc.StatusCode.UNAUTHENTICATED)
+      context.set_details('Must be authenticated to post')
+      raise Exception('Unauthenticated!')
     if not (request.title.strip()):
       context.set_code(grpc.StatusCode.INVALID_ARGUMENT)
       context.set_details('Conversations need title')
@@ -35,7 +41,8 @@ class ConversationsServicer(conversation_pb2_grpc.ConversationsServicer):
     post = post_pb2.Post()
     post.id = str(uuid.uuid4())
     post.text = request.text
-    post.authorDisplayName = request.authorDisplayName or 'Anonymous Coward'
+    post.authorId = user.id
+    post.authorDisplayName = user.displayName
     post.conversationId = conversation.id
     post.conversationTitle = request.title
     post.created.GetCurrentTime()

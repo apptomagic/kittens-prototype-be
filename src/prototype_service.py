@@ -11,7 +11,7 @@ import topic_pb2
 import topic_pb2_grpc
 from post_service import PostsServicer
 from conversation_service import ConversationsServicer
-from topic_server import TopicsServicer
+from topic_service import TopicsServicer
 
 def start_server():
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
