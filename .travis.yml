@@ -1,0 +1,12 @@
+dist: xenial
+language: python
+python:
+  - 3.7
+install:
+  - python please.py deps
+  - pip install behave
+script:
+  - python please.py serve & SERVER_PID=$!
+  - sleep 5
+  - behave kittens-api/bdd/behave/features
+  - kill $SERVER_PID
