@@ -54,7 +54,7 @@ if __name__ == '__main__':
   cmdparser.set_defaults(func=install_deps)
   cmdparser = subparsers.add_parser('proto', help='Build Python files from protobuf definitions')
   cmdparser.set_defaults(func=build_proto)
-  cmdparser.add_argument('path', nargs='?', default='../kittens-api/proto')
+  cmdparser.add_argument('path', nargs='?', default='./kittens-api/proto')
   cmdparser = subparsers.add_parser('serve', help='Run server')
   cmdparser.set_defaults(func=serve)
 
