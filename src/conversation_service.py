@@ -6,6 +6,7 @@ from google.protobuf.empty_pb2 import Empty
 import conversation_pb2
 import conversation_pb2_grpc
 
+from dev import debug
 from db import conversations
 from auth import get_user_from_context
 
@@ -18,7 +19,7 @@ class ConversationsServicer(conversation_pb2_grpc.ConversationsServicer):
   def Create(self, request, context):
     import post_pb2
     from db import posts
-    print('Got create conversation request', context.invocation_metadata())
+    debug('Got create conversation request', context.invocation_metadata())
     user = get_user_from_context(context)
     if not user:
       context.set_code(grpc.StatusCode.UNAUTHENTICATED)
@@ -52,7 +53,7 @@ class ConversationsServicer(conversation_pb2_grpc.ConversationsServicer):
     conversation.opId = post.id
     conversation.topics.extend(request.topics)
     conversations.append(conversation, context)
-    print('After answering request, conversations is:\n', repr(conversations))
+    debug('After answering request, conversations is:\n', repr(conversations))
     return conversation_pb2.ConversationAndOP(
       conversation = conversation,
       op = post,
@@ -76,6 +77,6 @@ class ConversationsServicer(conversation_pb2_grpc.ConversationsServicer):
   ########################################################################
   # admin/testing
   def SetupContext(self, request, context):
-    print('got context request', request)
+    debug('got context request', request)
     conversations.populate(request.name, request.conversations)
     return Empty()

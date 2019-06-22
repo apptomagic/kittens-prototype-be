@@ -6,6 +6,7 @@ from google.protobuf.empty_pb2 import Empty
 import post_pb2
 import post_pb2_grpc
 
+from dev import debug
 from db import posts
 from auth import get_user_from_context
 
@@ -16,7 +17,7 @@ class PostsServicer(post_pb2_grpc.PostsServicer):
     posts.clear_all()
   
   def Create(self, request, context):
-    print('Got create post request', context.invocation_metadata())
+    debug('Got create post request', context.invocation_metadata())
     user = get_user_from_context(context)
     if not user:
       context.set_code(grpc.StatusCode.UNAUTHENTICATED)
@@ -49,7 +50,7 @@ class PostsServicer(post_pb2_grpc.PostsServicer):
     post.created.GetCurrentTime()
     post.updated.FromNanoseconds(post.created.ToNanoseconds())
     posts.append(post, context)
-    print('After answering request, posts is:\n', repr(posts))
+    debug('After answering request, posts is:\n', repr(posts))
     return post
   
   def PostsByUser(self, request, context):
@@ -86,6 +87,6 @@ class PostsServicer(post_pb2_grpc.PostsServicer):
   ########################################################################
   # admin/testing
   def SetupContext(self, request, context):
-    print('got context request', request)
+    debug('got context request', request)
     posts.populate(request.name, request.posts)
     return Empty()

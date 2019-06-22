@@ -1,6 +1,7 @@
 # kittens-prototype-be
 
 Kittens back-end prototype (monolyth version)
+[![Build Status](https://travis-ci.org/apptomagic/kittens-prototype-be.svg?branch=master)](https://travis-ci.org/apptomagic/kittens-prototype-be)
 
 ## But why is it in Python? 🙀
 
