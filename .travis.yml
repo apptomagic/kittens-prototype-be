@@ -4,7 +4,7 @@ python:
   - 3.7
 install:
   - python please.py deps
-  - python please.py test_deps
+  - python please.py test-deps
 script:
   - python please.py serve & SERVER_PID=$!
   - sleep 5
